@@ -1,18 +1,17 @@
 language: objective-c
 os:
   - osx
-
 osx_image: xcode7.3
 xcode_project: "/platforms/osx/SunHouse/SunHouse.xcodeproj"
 xcode_scheme: "/platforms/osx/SunHouse/SunHouse"
-xcode_sdk: macosx10.11
+xcode_sdk: macosx
 before_install:
   - brew update
   - brew outdated xctool || brew upgrade xctool
   - brew install poco
   #Install intel IPP libraries
   #- ./installIPPOSX.sh
-  - mkdir -p tmp && wget -q -O /tmp/install-icc.sh https://raw.githubusercontent.com/nemequ/icc-travis/master/install-icc.sh
+  - mkdir -p tmp && wget -O tmp/install-icc.sh https://raw.githubusercontent.com/nemequ/icc-travis/master/install-icc.sh --quiet
   - chmod 755 /tmp/install-icc.sh
   - sudo ./tmp/install-icc.sh --dest /src/intel --tmpdir /root/tmp --components mkl,ipp,daal
 

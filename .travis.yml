@@ -1,0 +1,32 @@
+language: objective-c
+os:
+  - osx
+
+osx_image: xcode7.3
+xcode_project: "/platforms/osx/SunHouse/SunHouse.xcodeproj"
+xcode_scheme: "/platforms/osx/SunHouse/SunHouse"
+xcode_sdk: macosx10.11
+before_install:
+  - brew update
+  - brew outdated xctool || brew upgrade xctool
+  - brew install poco
+  #Install intel IPP libraries
+  #- ./installIPPOSX.sh
+  - mkdir -p tmp && wget -q -O /tmp/install-icc.sh https://raw.githubusercontent.com/nemequ/icc-travis/master/install-icc.sh
+  - chmod 755 /tmp/install-icc.sh
+  - sudo ./tmp/install-icc.sh --dest /src/intel --tmpdir /root/tmp --components mkl,ipp,daal
+
+script:
+  - source ~/.bashrc
+
+after_script:
+  - '[[ ! -z "${INTEL_INSTALL_PATH}" ]] && uninstall_intel_software'
+
+branches:
+  only:
+  - travis_osx
+
+env:
+  global:
+    #intel serial
+    secure: qsCT1Gb7iZsD2VXqvjrzeYKkVdEZEpbHNhNIlI/5acePXmR8Iye9gnMDwbMVzZcP2J4C2B1jA3bxZNex2IaJIMnJM7xOqEkdvj3KvDi2UyyoKQzHSoUEug5vzb0n/9+ykgoTKgI7xjDpJOjWp9LWCEOIig7isS2XwOulyv/pilLqjcOUoqo+L9kLX4twL0QTQ1IidZeKzGpWyRVcL+K7XgkDzz6Hym2WuRz0+rj6aN79gZ2GBIykipYiIcxL1BADrIrJgkdOR55oh8WOZWrjyZdyrTk+N5MnzHgB7pQa1q5CzIBeotUINa3Osbfy/dQv1L0hoqDb0SltESp+PfnI/nbYcOZkOcvGet7GzU4vrMMZKtrGjgvOsarMd3AS02drMFGemPaiBN1wZbn9Lr+s/qAAbjW1/ibnuWSURmjqRYmKsaza7z04Goym1GHzYyIVWSOd4Oo0Ja8hh9M8kmK9zW0hF7Oe0LvNryv6CweScpCTnfwo2wpEus5lXGG7YTX3FvSq6OyaKPgtT1h0FoQL3zVVzNS58+I4KnzZz5otzLstjBxEY2OCI6Thy3hTv/GUTAYQNHAC4ym1PGRvxS7RKjAedsUXx9uqEb7SAt2qqGbo80UjtacoKy5bQ18FBkePFu0iMZ09c1IWaqNiPr+puhqob9hU1uW1PtzWWW7R0xs=

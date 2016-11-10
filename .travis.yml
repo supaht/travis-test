@@ -11,9 +11,12 @@ before_install:
   - brew install poco
   #Install intel IPP libraries
   #- ./installIPPOSX.sh
-  - mkdir -p tmp && wget -O tmp/install-icc.sh https://raw.githubusercontent.com/nemequ/icc-travis/master/install-icc.sh --quiet
+  #- mkdir -p tmp && wget -O tmp/install-icc.sh https://raw.githubusercontent.com/nemequ/icc-travis/master/install-icc.sh --quiet
   #- chmod 755 /tmp/install-icc.sh
-  - sudo ./tmp/install-icc.sh --dest /src/intel --tmpdir /root/tmp --components mkl,ipp,daal
+  - wget -q -O /dev/stdout \
+      'https://raw.githubusercontent.com/nemequ/icc-travis/master/install-icc.sh' | \
+      /bin/sh
+  - ./install-icc.sh #sudo ./tmp/install-icc.sh --dest /src/intel --tmpdir /root/tmp --components mkl,ipp,daal
 
 script:
   - source ~/.bashrc

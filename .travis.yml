@@ -22,10 +22,6 @@ script:
 after_script:
   - '[[ ! -z "${INTEL_INSTALL_PATH}" ]] && uninstall_intel_software'
 
-branches:
-  only:
-  - travis_osx
-
 env:
   global:
     #intel serial

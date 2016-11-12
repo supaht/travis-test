@@ -14,7 +14,7 @@ before_install:
   #- mkdir -p tmp && wget -O tmp/install-icc.sh https://raw.githubusercontent.com/nemequ/icc-travis/master/install-icc.sh --quiet
   #- chmod 755 /tmp/install-icc.sh
   #- sudo ./install-icc.sh --dest /src/intel --tmpdir /root/tmp --components mkl,ipp,daal
-  ./install-intel.sh
+  ./install_intel.sh
 
 script:
   - source ~/.bashrc
